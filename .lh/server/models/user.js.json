@@ -1,0 +1,26 @@
+{
+    "sourceFile": "server/models/user.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1689048644065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689048820419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,8 +31,25 @@\n   role: {\r\n     type: String,\r\n     default: \"user\",\r\n   },\r\n+  cart: {\r\n+    type: Array,\r\n+    default: []\r\n+  },\r\n+  address: [\r\n+    {\r\n+        type: mongoose.Types.ObjectId,\r\n+        ref:'Address',\r\n+    }\r\n+  ],\r\n+  wishlist: [\r\n+    {\r\n+        type: mongoose.Types.ObjectId,\r\n+        ref:'Product',\r\n+    }\r\n+  ],\r\n+\r\n });\r\n \r\n //Export the model\r\n module.exports = mongoose.model(\"User\", userSchema);\r\n"
+                },
+                {
+                    "date": 1689048898263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,8 +47,15 @@\n       type: mongoose.Types.ObjectId,\r\n       ref: \"Product\",\r\n     },\r\n   ],\r\n+  isBlocked: {\r\n+    type: Boolean,\r\n+    default: false\r\n+  },\r\n+  refreshtoken: {\r\n+    type: String,\r\n+  },\r\n });\r\n \r\n //Export the model\r\n module.exports = mongoose.model(\"User\", userSchema);\r\n"
+                }
+            ],
+            "date": 1689048644065,
+            "name": "Commit-0",
+            "content": "const mongoose = require('mongoose'); // Erase if already required\r\n\r\n// Declare the Schema of the Mongo model\r\nvar userSchema = new mongoose.Schema({\r\n    firstname:{\r\n        type:String,\r\n        required:true,\r\n        unique:true,\r\n        index:true,\r\n    },\r\n    lastname:{\r\n        type:String,\r\n        required:true,\r\n        unique:true,\r\n        index:true,\r\n    },\r\n    email:{\r\n        type:String,\r\n        required:true,\r\n        unique:true,\r\n    },\r\n    mobile:{\r\n        type:String,\r\n        required:true,\r\n        unique:true,\r\n    },\r\n    password:{\r\n        type:String,\r\n        required:true,\r\n    },\r\n    role:{\r\n        type:String,\r\n        default:\"user\"\r\n    },\r\n});\r\n\r\n//Export the model\r\nmodule.exports = mongoose.model('User', userSchema);"
+        }
+    ]
+}

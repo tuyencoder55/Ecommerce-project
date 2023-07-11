@@ -1,0 +1,22 @@
+{
+    "sourceFile": "server/controllers/user.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1689056164870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689057041427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n       mes: \"missing inputs\",\r\n     });\r\n \r\n   const response = await User.create(req.body);\r\n-  return response.status(200).json({\r\n+  return res.status(200).json({\r\n     success: response ? true : false,\r\n     response,\r\n   });\r\n });\r\n"
+                }
+            ],
+            "date": 1689056164870,
+            "name": "Commit-0",
+            "content": "const User = require('../models/user')\r\nconst  asyncHandler  = require('express-async-handler')\r\n\r\n\r\nconst  register = asyncHandler(async (req,res) => {\r\n    const{email, password,firstname,lastname} = req.body\r\n    if(!email || !password || !lastname || ! firstname) \r\n    return res.status(400).json({\r\n        success:false,\r\n        mes:'missing inputs'\r\n    })\r\n\r\n    const response = await User.create(req.body)\r\n    return response.status(200).json({\r\n        success: response ? true : false,\r\n        response\r\n    })\r\n})\r\n\r\nmodule.exports ={\r\n    register\r\n}"
+        }
+    ]
+}

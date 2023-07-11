@@ -1,0 +1,22 @@
+{
+    "sourceFile": "server/config/dbconnect.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1689043692966,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689044194956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,13 @@\n \r\n const dbConnect = async () => {\r\n   try {\r\n     const conn = await mongoose.connect(process.env.URL_DB);\r\n+    if(conn.connection.readyState === 1) console.log(\"DB connection is successfully!!!\")\r\n+    else console.log('DB connecting!!!')\r\n   } catch (error) {\r\n     console.log(\"DB connect is failed: \" + error);\r\n     throw new Error();\r\n   }\r\n };\r\n+\r\n+module.exports= dbConnect\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1689043692966,
+            "name": "Commit-0",
+            "content": "const {default:mongoose} = require('mongoose');\r\n\r\nconst dbConnect = async()=>{\r\n    try {\r\n         const conn = await mongoose.connect(process.env.URL_DB)\r\n    } catch (error) {\r\n        console.log(\"DB connect is failed: \" + error)\r\n        throw new Error\r\n    }\r\n}"
+        }
+    ]
+}
