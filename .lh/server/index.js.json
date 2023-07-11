@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1689040562557,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689042654270,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,15 @@\n+const express = require(\"express\");\r\n+require(\"dotenv\").config();\r\n+\r\n+const app = express();\r\n+const port = process.env.PORT || 5515;\r\n+app.use(express.json());\r\n+app.use(express.urlencoded({ extended: true }));\r\n+\r\n+app.use(\"/\", (req, res) => {\r\n+  res.send(\"server is running\");\r\n+});\r\n+\r\n+app.listen(port, () => {\r\n+  console.log(\"server running on the port \" + port);\r\n+});\r\n"
+                },
+                {
+                    "date": 1689042692431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,17 +12,4 @@\n \r\n app.listen(port, () => {\r\n   console.log(\"server running on the port \" + port);\r\n });\r\n-const express = require('express');\r\n- require('dotenv').config()\r\n-\r\n- const app = express();\r\n-const port = process.env.PORT ||5515\r\n-app.use(express.json());\r\n-app.use(express.urlencoded({extended:true}));\r\n-\r\n-app.use('/',(req,res)=>{res.send(\"server is running\")})\r\n-\r\n-app.listen(port,()=>{\r\n-    console.log(\"server running on the port \" + port)\r\n-})\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1689040562557,
