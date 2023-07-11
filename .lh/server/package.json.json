@@ -1,0 +1,26 @@
+{
+    "sourceFile": "server/package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1688971569950,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1688971593738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,11 @@\n   \"version\": \"1.0.0\",\r\n   \"main\": \"index.js\",\r\n   \"author\": \"cong tuyen\",\r\n   \"license\": \"MIT\",\r\n+  \"scripts\": {\r\n+    \"dev\":\"node index.js\"\r\n+  },\r\n   \"dependencies\": {\r\n     \"express\": \"^4.18.2\",\r\n     \"nodemon\": \"^3.0.1\"\r\n   }\r\n"
+                },
+                {
+                    "date": 1688971699821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n   \"main\": \"index.js\",\r\n   \"author\": \"cong tuyen\",\r\n   \"license\": \"MIT\",\r\n   \"scripts\": {\r\n-    \"dev\": \"node index.js\"\r\n+    \"dev\": \"nodemon index.js\"\r\n   },\r\n   \"dependencies\": {\r\n     \"express\": \"^4.18.2\",\r\n     \"mongoose\": \"^7.3.2\",\r\n"
+                }
+            ],
+            "date": 1688971569950,
+            "name": "Commit-0",
+            "content": "{\r\n  \"name\": \"server\",\r\n  \"version\": \"1.0.0\",\r\n  \"main\": \"index.js\",\r\n  \"author\": \"cong tuyen\",\r\n  \"license\": \"MIT\",\r\n  \"scripts\": {\r\n    \"dev\":\"node index.js\"\r\n  },\r\n  \"dependencies\": {\r\n    \"express\": \"^4.18.2\"\r\n  }\r\n}\r\n"
+        }
+    ]
+}
