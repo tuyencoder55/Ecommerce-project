@@ -1,0 +1,18 @@
+{
+    "sourceFile": "server/.envlocal",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1689306930471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1689306930471,
+            "name": "Commit-0",
+            "content": "PORT =\r\n\r\nPassword_db = \r\nUser_db = \r\nURL_DB = \r\n"
+        }
+    ]
+}

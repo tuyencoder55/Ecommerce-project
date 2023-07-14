@@ -5,4 +5,4 @@ router.post("/register", ctrls.register);
 
 module.exports = router;
 
-// CRUD | Create - Read - Update  - Delete | POST - GET - PUT - DELETE
+// CRUD | Create - Read - Update  - Delete | POST - GET - PUT - DELETE--
