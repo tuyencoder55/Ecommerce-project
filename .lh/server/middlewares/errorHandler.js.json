@@ -1,0 +1,26 @@
+{
+    "sourceFile": "server/middlewares/errorHandler.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1689306172823,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689306360550,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,4 +2,12 @@\n   const error = new Error(`Route ${req.originalUrl} not found`);\r\n   res.status(404);\r\n   next(error);\r\n };\r\n+\r\n+const errorHandler = (error,req, res, next) => {\r\n+const statusCode = res.statusCode === 200 ? 500 : res.statusCode\r\n+return res.status(statusCode).json({\r\n+    success:false,\r\n+    mes:err?.message\r\n+})\r\n+}\r\n"
+                },
+                {
+                    "date": 1689306388150,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,4 +10,9 @@\n     success: false,\r\n     mes: err?.message,\r\n   });\r\n };\r\n+\r\n+module.exports ={\r\n+    notFound,\r\n+    errorHandler\r\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1689306172823,
+            "name": "Commit-0",
+            "content": "const notFound = (req,res,next) => {\r\n    const error = new Error(`Route ${req.originalUrl} not found`);\r\n    res.status(404)\r\n    next(error);\r\n  }"
+        }
+    ]
+}
