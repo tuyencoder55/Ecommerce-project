@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1689040562557,
@@ -24,6 +24,10 @@
                 {
                     "date": 1689056647291,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,16 @@\n const express = require(\"express\");\r\n require(\"dotenv\").config();\r\n const dbConnect = require(\"./config/dbconnect\");\r\n+const initRoutes = require(\"./routes\")\r\n \r\n const app = express();\r\n const port = process.env.PORT || 5515;\r\n app.use(express.json());\r\n app.use(express.urlencoded({ extended: true }));\r\n dbConnect();\r\n \r\n-app.use(\"/\", (req, res) => {\r\n-  res.send(\"server is running\");\r\n-});\r\n+initRoutes(app);\r\n \r\n app.listen(port, () => {\r\n   console.log(\"server running on the port \" + port);\r\n });\r\n"
+                },
+                {
+                    "date": 1689392024801,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,12 @@\n const express = require(\"express\");\r\n require(\"dotenv\").config();\r\n const dbConnect = require(\"./config/dbconnect\");\r\n const initRoutes = require(\"./routes\");\r\n+const cookieParser = require(\"cookie-parser\");\r\n \r\n const app = express();\r\n+app.use(cookieParser())\r\n const port = process.env.PORT || 5515;\r\n app.use(express.json());\r\n app.use(express.urlencoded({ extended: true }));\r\n dbConnect();\r\n"
                 }
             ],
             "date": 1689040562557,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1689056164870,
@@ -12,6 +12,10 @@
                 {
                     "date": 1689057041427,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n       mes: \"missing inputs\",\r\n     });\r\n \r\n   const response = await User.create(req.body);\r\n-  return response.status(200).json({\r\n+  return res.status(200).json({\r\n     success: response ? true : false,\r\n     response,\r\n   });\r\n });\r\n"
+                },
+                {
+                    "date": 1689384856429,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,15 +7,23 @@\n     return res.status(400).json({\r\n       success: false,\r\n       mes: \"missing inputs\",\r\n     });\r\n-\r\n-  const response = await User.create(req.body);\r\n-  return res.status(200).json({\r\n+    const  user = await User.findOne({email})\r\n+    if(user){\r\n+      throw new Error('user has existed!')\r\n+    }else{\r\n+      const  newUser = await User.create(req.body)\r\n+       return res.status(200).json({\r\n     success: response ? true : false,\r\n-    response,\r\n-  });\r\n+    mes: newUser?'Register is successfully. Please go login': 'Something went wrong'\r\n+       \r\n+  // const response = await User.create(req.body);\r\n+  // return res.status(200).json({\r\n+  //   success: response ? true : false,\r\n+  //   response,\r\n+  // });\r\n });\r\n \r\n module.exports = {\r\n   register,\r\n-};\r\n+}\r\n"
                 }
             ],
             "date": 1689056164870,

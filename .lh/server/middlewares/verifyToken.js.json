@@ -1,0 +1,26 @@
+{
+    "sourceFile": "server/middlewares/verifyToken.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1689393370544,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689393476481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,13 +3,19 @@\n \r\n const verifyAccessToken = asyncHandler(async (req, res, next) => {\r\n   if (req?.headers.authorization?.startsWith(\"Bearer\")) {\r\n     const token = req.headers.authorization.split(\" \")[1];\r\n+   jwt.verify(token,process.env.JWT_SECRET,(err,decode)=>{\r\n     if (err)\r\n-      return res.status(401).json({\r\n-        success: false,\r\n-        mes: \"Invalid access token\",\r\n-      });\r\n+    return res.status(401).json({\r\n+      success: false,\r\n+      mes: \"Invalid access token\",\r\n+    });\r\n+    console.log(decode)\r\n+    request.user = decode\r\n+    next()\r\n+   })\r\n+      \r\n   }\r\n });\r\n \r\n module.exports = {\r\n"
+                },
+                {
+                    "date": 1689393524094,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,13 @@\n       console.log(decode);\r\n       request.user = decode;\r\n       next();\r\n     });\r\n+  }else{\r\n+    return res.status(401).json({\r\n+        success: false,\r\n+        mes: \"Required authorization\",\r\n+      });\r\n   }\r\n });\r\n \r\n module.exports = {\r\n"
+                }
+            ],
+            "date": 1689393370544,
+            "name": "Commit-0",
+            "content": "const jwt = require('jsonwebtoken')\r\nconst asyncHandler = require('express-async-handler')\r\n\r\n\r\n\r\nconst verifyAccessToken =  asyncHandler(async(req, res, next)=>{\r\n    if(req?.headers.authorization?.startsWith('Bearer')){\r\n        const token = req.headers.authorization.split(' ')[1]\r\n        if(err) return res.status(401).json({\r\n            success:false,\r\n            mes: 'Invalid access token'\r\n        })\r\n    }\r\n})\r\n\r\nmodule.exports ={\r\n    verifyAccessToken\r\n}"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "server/middlewares/jwt.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1689388660418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689391740577,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,11 @@\n const jwt = require(\"jsonwebtoken\");\r\n \r\n const generateAccessToken = (uid, role) =>\r\n   jwt.sign({ _id: uid, role }, process.env.JWT_SECRET, { expiresIn: \"3d\" });\r\n+const generateRefreshToken = (uid) =>\r\n+  jwt.sign({ _id: uid }, process.env.JWT_SECRET, { expiresIn: \"7d\" });\r\n \r\n module.exports = {\r\n   generateAccessToken,\r\n+  generateRefreshToken\r\n };\r\n"
+                }
+            ],
+            "date": 1689388660418,
+            "name": "Commit-0",
+            "content": "const jwt  = require('jsonwebtoken')\r\n\r\nconst generateAccessToken = (uid, role)=> jwt.sign({_id:uid, role},process.env.JWT_SECRET,{expiresIn:'3d'})\r\n\r\n\r\nmodule.exports = {\r\n    generateAccessToken\r\n}"
+        }
+    ]
+}
