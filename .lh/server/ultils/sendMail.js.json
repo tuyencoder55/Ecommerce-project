@@ -1,0 +1,26 @@
+{
+    "sourceFile": "server/ultils/sendMail.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1689924955443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1689924974590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,4 +25,6 @@\n   });\r\n \r\n   console.log(\"Message sent: %s\", info.messageId);\r\n });\r\n+\r\n+module.exports = sendMail\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1689925150323,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,8 @@\n     subject: \"Hello ✔\", // Subject line\r\n     text: \"Hello world?\", // plain text body\r\n     html: \"<b>Hello world?</b>\", // html body\r\n   });\r\n-\r\n-  console.log(\"Message sent: %s\", info.messageId);\r\n+return info\r\n });\r\n \r\n module.exports = sendMail;\r\n"
+                }
+            ],
+            "date": 1689924955443,
+            "name": "Commit-0",
+            "content": "const nodemailer = require('nodemailer')\r\nconst asyncHandler = require('async-handler')\r\n\r\n\r\nconst sendMail = (asyncHandler(async()=>{\r\n\r\n    const transporter = nodemailer.createTransport({\r\n        host: \"smtp.forwardemail.net\",\r\n        port: 465,\r\n        secure: true,\r\n        auth: {\r\n          // TODO: replace `user` and `pass` values from <https://forwardemail.net>\r\n          user: 'REPLACE-WITH-YOUR-ALIAS@YOURDOMAIN.COM',\r\n          pass: 'REPLACE-WITH-YOUR-GENERATED-PASSWORD'\r\n        }\r\n      });\r\n      \r\n      // async..await is not allowed in global scope, must use a wrapper\r\n     \r\n        // send mail with defined transport object\r\n        const info = await transporter.sendMail({\r\n          from: '\"Fred Foo 👻\" <foo@example.com>', // sender address\r\n          to: \"bar@example.com, baz@example.com\", // list of receivers\r\n          subject: \"Hello ✔\", // Subject line\r\n          text: \"Hello world?\", // plain text body\r\n          html: \"<b>Hello world?</b>\", // html body\r\n        });\r\n      \r\n        console.log(\"Message sent: %s\", info.messageId);\r\n}))\r\n"
+        }
+    ]
+}

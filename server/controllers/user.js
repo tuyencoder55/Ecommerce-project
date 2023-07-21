@@ -5,6 +5,8 @@ const {
 } = require("../middlewares/jwt");
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
+const sendMail = require("../ultils/sendMail");
 
 const register = asyncHandler(async (req, res) => {
   const { email, password, firstname, lastname } = req.body;
@@ -74,18 +76,81 @@ const getOneUser = asyncHandler(async (req, res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
-  // const {_id} =
-
   //check toke có trong cookie không ?
   if (!cookie && !cookie.refreshToken)
     throw new Error("No refresh token in cookie");
 
   //check token có hợp lệ hay không
-  JsonWebTokenError.ver;
+  const rs = await jwt.verify(cookie.refreshToken, process.env.JWT_SECRET);
+  const response = await User.findOne({
+    _id: rs._id,
+    refreshToken: cookie.refreshToken,
+  });
+  return res.status(200).json({
+    success: response ? true : false,
+    newAccessToken: response
+      ? generateAccessToken(response._id, response.role)
+      : "refreshToken invalid",
+  });
+});
+
+const logout = asyncHandler(async (req, res) => {
+  const cookie = req.cookies;
+  if (!cookie || !cookie.refreshToken)
+    throw new Error("No refresh token in cookie");
+  //xoas refresh token ở trong DB
+  await User.findOneAndUpdate(
+    { refreshToken: cookie.refreshToken },
+    { refreshToken: "" },
+    { new: true }
+  );
+  //xoa refresh token ở cookie
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+  });
+  return res.status(200).json({
+    success: true,
+    mes: "logout success",
+  });
+});
+
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.query;
+  if (!email) throw new Error("missing email");
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("user not found");
+  const resetToken = user.resetPasswordToken();
+  await user.save();
+
+  // const html = 'bấm hộ cái link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ.' + '<a style="color:red, font-size:70px" href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>';
+  var textLink = `${process.env.URL_SERVER}/api/user/reset-password/${resetToken}`;
+
+  const html =
+    "<b>Signup Confirmation ✔</b><br />" +
+    "<br />" +
+    '<a href="' +
+    textLink.toString() +
+    '">Click here to activate your account.</a>' +
+    "<br />" +
+    "<br /> Text link: " +
+    textLink;
+  const data = {
+    email,
+    html,
+  };
+  const rs = await sendMail(data);
+  return res.status(200).json({
+    success: true,
+    rs,
+  });
 });
 
 module.exports = {
   register,
   login,
   getOneUser,
+  refreshAccessToken,
+  logout,
+  forgotPassword,
 };
