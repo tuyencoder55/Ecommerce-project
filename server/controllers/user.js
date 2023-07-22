@@ -6,6 +6,7 @@ const {
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const sendMail = require("../ultils/sendMail");
 
 const register = asyncHandler(async (req, res) => {
@@ -123,18 +124,15 @@ const forgotPassword = asyncHandler(async (req, res) => {
   const resetToken = user.resetPasswordToken();
   await user.save();
 
-  // const html = 'bấm hộ cái link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ.' + '<a style="color:red, font-size:70px" href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>';
-  var textLink = `${process.env.URL_SERVER}/api/user/reset-password/${resetToken}`;
+  // const html = 'bấm hộ cái link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ.' + '<a style="color:red, font-size:70px" href=${process.env.URL_SERVER}/api/user/reset-password/
 
-  const html =
-    "<b>Signup Confirmation ✔</b><br />" +
-    "<br />" +
-    '<a href="' +
-    textLink.toString() +
-    '">Click here to activate your account.</a>' +
-    "<br />" +
-    "<br /> Text link: " +
-    textLink;
+  const html = `
+    <h1>This is a test email</h1>
+    <p>Click the link below to change your password.</p>
+    Click this <a href="${process.env.URL_SERVER}/api/user/reset-password/${resetToken}" style="color:red">Link </a> to set a new password.
+
+  `;
+
   const data = {
     email,
     html,
@@ -146,6 +144,29 @@ const forgotPassword = asyncHandler(async (req, res) => {
   });
 });
 
+const resetPassword = asyncHandler(async (req, res) => {
+  const { password, token } = req.body;
+  if (!password || !token) throw new Error("missing input");
+  const passwordResetToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+  const user = await User.findOne({
+    passwordResetToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  if (!user) throw new Error("Invalid reset token");
+  user.password = password;
+  user.passwordResetToken = undefined;
+  user.passwordChangeAt = Date.now();
+  user.passwordResetExpires = undefined;
+  await user.save();
+  return res.status(200).json({
+    success: user ? true : false,
+    mes: user ? "update password successful" : "update password not successful",
+  });
+});
+
 module.exports = {
   register,
   login,
@@ -153,4 +174,5 @@ module.exports = {
   refreshAccessToken,
   logout,
   forgotPassword,
+  resetPassword,
 };
